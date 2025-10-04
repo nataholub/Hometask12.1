@@ -4,13 +4,15 @@ List<bool> isDone = new List<bool>();
 
 Modes mode = Modes.Input;
 
+Console.ForegroundColor = ConsoleColor.Yellow;
 Console.WriteLine("\tTO-DO LIST");
+Console.ResetColor();
 
 do
 {
     switch (mode)
     {
-        case Modes.Input:
+        case Modes.Input:            
             Console.WriteLine("\nEnter the task that you want to add:");
             AddTask(Console.ReadLine(), toDoList, isDone);
             break;
@@ -18,12 +20,9 @@ do
             Console.WriteLine("\nEnter the number of task you'd like to remove:");
             RemoveTask(Console.ReadLine(), toDoList, isDone);
             break;
-        case Modes.DoneTag:
+        default:
             Console.WriteLine("\nEnter the number of task you'd like to tag as done:");
             DoneTag(Console.ReadLine(), isDone);
-            break;
-        default:
-            //
             break;
     }
     Console.Clear();
@@ -32,10 +31,12 @@ do
     int modeNumber = -1;
     do
     {
+        // Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine("\nEnter <0> if you want to add the task," +
             "\n<1> if you want to remove the task," +
             "\n<2> if you want to tag the task as done," +
             "\n<3> if you want to exit.");
+        // Console.ResetColor();
         modeNumber = ModeSelection(Console.ReadLine());
 
         if (modeNumber != -1)
@@ -88,6 +89,7 @@ static void DoneTag(string input, List<bool> isDone)
 
 static void ListOutput(List<string> toDoList, List<bool> isDone)
 {
+    Console.ForegroundColor = ConsoleColor.Yellow;
     Console.WriteLine("\tTO-DO LIST");
     for (byte i = 0; i < toDoList.Count; i++)
     {
@@ -96,6 +98,7 @@ static void ListOutput(List<string> toDoList, List<bool> isDone)
             ? $"{i + 1}. ✅ {toDoList[i]}"
             : $"{i + 1}. {toDoList[i]}");
     }
+    Console.ResetColor();
 }
 
 static int ModeSelection(string input)
@@ -107,12 +110,4 @@ static int ModeSelection(string input)
     }
     else
         return -1;
-}
-
-enum Modes
-{
-    Input,
-    Remove,
-    DoneTag,
-    Exit
 }
